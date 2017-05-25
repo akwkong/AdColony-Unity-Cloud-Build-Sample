@@ -14,19 +14,17 @@ namespace AdColony.Editor {
 
 #if UNITY_CLOUD_BUILD
         public static void OnPostprocessBuildiOS(string exportPath) {
-            ProcessPostBuild(BuildTarget.iOS, exportPath);
+            OnPostprocessBuild(BuildTarget.iOS, exportPath);
         }
 #endif
 
         [PostProcessBuildAttribute(1)]
         public static void OnPostprocessBuild(BuildTarget buildTarget, string buildPath) {
             if (buildTarget == BuildTarget.iOS) {
-#if !UNITY_CLOUD_BUILD
 #if UNITY_IOS
                 Debug.Log("AdColony: OnPostprocessBuild");
                 UpdateProject(buildTarget, buildPath + "/Unity-iPhone.xcodeproj/project.pbxproj");
                 UpdateProjectPlist(buildTarget, buildPath + "/Info.plist");
-#endif
 #endif
             }
         }

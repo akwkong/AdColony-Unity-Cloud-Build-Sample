@@ -23,14 +23,14 @@ using UnityEditor;
 ///   There can be multiple dependency files like this one per project, the  resolver will combine them and process all
 /// of them at once.
 [InitializeOnLoad]
-public class SampleDependencies : AssetPostprocessor {
+public class ADCDependencies : AssetPostprocessor {
 #if UNITY_ANDROID
   /// <summary>Instance of the PlayServicesSupport resolver</summary>
   public static object svcSupport;
 #endif  // UNITY_ANDROID
 
   /// Initializes static members of the class.
-  static SampleDependencies() {
+  static ADCDependencies() {
     RegisterDependencies();
   }
 

@@ -51,6 +51,8 @@ namespace AdColony.Editor {
             project.AddFrameworkToProject(targetId, "Security.framework", false);
             project.AddFrameworkToProject(targetId, "JavaScriptCore.framework", false);
 
+            project.AddFrameworkToProject(targetId, "MobileCoreServices.framework", false);
+
             project.AddFileToBuild(targetId, project.AddFile("usr/lib/libz.1.2.5.dylib", "Frameworks/libz.1.2.5.dylib", PBXSourceTree.Sdk));
 
             // Optional Frameworks

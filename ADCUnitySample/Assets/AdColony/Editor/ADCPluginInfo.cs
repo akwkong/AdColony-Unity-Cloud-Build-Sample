@@ -3,7 +3,7 @@ namespace AdColony.Editor {
         public const string Version = "3.1.0";
         public const string AndroidSDKVersion = "3.1.2";
         public const string iOSSDKVersion = "3.1.1";
-        #if UNITY_5_6
+        #if UNITY_5_6 || UNITY_2017
         public const UnityEditor.AndroidSdkVersions RequiredAndroidVersion = UnityEditor.AndroidSdkVersions.AndroidApiLevel16;
         #else
         public const UnityEditor.AndroidSdkVersions RequiredAndroidVersion = UnityEditor.AndroidSdkVersions.AndroidApiLevel14;

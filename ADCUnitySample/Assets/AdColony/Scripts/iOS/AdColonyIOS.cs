@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace AdColony {
 #if UNITY_IOS
     public class AdsIOS : IAds {
-        [DllImport ("__Internal")] private static extern void _AdcSetManagerNameAds(string managerName);
+		[DllImport ("__Internal")] private static extern void _AdcSetManagerNameAds(string managerName, string adapterVersion);
         [DllImport ("__Internal")] private static extern void _AdcConfigure(string appId, string appOptionsJson, int zoneIdsCount, string[] zoneIds);
         [DllImport ("__Internal")] private static extern string _AdcGetSDKVersion();
         [DllImport ("__Internal")] private static extern void _AdcRequestInterstitialAd(string zoneId, string adOptionsJson);
@@ -22,7 +22,7 @@ namespace AdColony {
         [DllImport ("__Internal")] private static extern void _AdcDestroyInterstitialAd(string id);
 
         public AdsIOS(string managerName) {
-            _AdcSetManagerNameAds(managerName);
+			_AdcSetManagerNameAds(managerName, Constants.AdapterVersion);
         }
 
         public void Configure(string appId, AppOptions options, params string[] zoneIds) {

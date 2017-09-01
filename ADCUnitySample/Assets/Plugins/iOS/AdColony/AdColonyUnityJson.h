@@ -17,7 +17,7 @@
 @end
 
 
-@interface NSArray (adcPubServicesUtils)
+@interface NSArray (adcJsonParsing)
 
 - (NSString *)toJsonString;
 

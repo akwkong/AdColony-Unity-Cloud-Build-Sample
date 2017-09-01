@@ -16,12 +16,15 @@ namespace AdColony.Editor {
         }
 
         public static void CheckMinSDKVersion() {
+#if UNITY_ANDROID
             if (PlayerSettings.Android.minSdkVersion < ADCPluginInfo.RequiredAndroidVersion) {
                 UnityEngine.Debug.LogError("AdColony requires " + ADCPluginInfo.RequiredAndroidVersion + " in PlayerSettings");
             }
+#endif
         }
 
         public static void Process() {
+#if UNITY_ANDROID
             CheckMinSDKVersion();
 
             string outputPath = Path.Combine(Application.dataPath, "Plugins/Android/AdColony");
@@ -52,6 +55,7 @@ namespace AdColony.Editor {
             using (var wr = new StreamWriter(manifest, false)) {
                 wr.Write(body);
             }
+#endif
         }
     }
 }

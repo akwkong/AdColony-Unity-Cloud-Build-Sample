@@ -103,6 +103,16 @@ namespace AdColony {
         public static event Action<InterstitialAd> OnAudioStopped;
 
         /// <summary>
+        /// Event triggered if action with ad caused the application to background.
+        /// </summary>
+        public static event Action<InterstitialAd> OnLeftApplication;
+
+        /// <summary>
+        /// Event triggered after an InterstitialAd was clicked.
+        /// </summary>
+        public static event Action<InterstitialAd> OnClicked;
+
+        /// <summary>
         /// Event triggered after the ad triggers an IAP opportunity.
         /// Parameter 1: ad
         /// Parameter 2: IAP product ID
@@ -293,6 +303,20 @@ namespace AdColony {
             }
         }
 
+        /// <summary>
+        /// Interface for PIE (Post-Install Events)
+        /// </summary>
+        public static IEventTracker GetEventTracker() {
+            IEventTracker ret = null;
+            if (SharedGameObject != null) {
+                ret = SharedGameObject._eventTracker;
+            }
+            if (ret == null) {
+                Debug.LogError("Platform-specific implemenation not set");
+            }
+            return ret;
+        }
+
 #region Internal Methods - do not call these
 
         public static Ads SharedGameObject {
@@ -315,8 +339,10 @@ namespace AdColony {
 
 #elif UNITY_ANDROID
                         _sharedGameObject._sharedInstance = new AdsAndroid(singleton.name);
+                        _sharedGameObject._eventTracker = new EventTrackerAndroid();
 #elif UNITY_IOS
                         _sharedGameObject._sharedInstance = new AdsIOS(singleton.name);
+                        _sharedGameObject._eventTracker = new EventTrackerIOS();
 #elif UNITY_WP8
 
 #elif UNITY_METRO
@@ -485,6 +511,24 @@ namespace AdColony {
             }
         }
 
+        public void _OnLeftApplication(string paramJson) {
+            Hashtable values = (AdColonyJson.Decode(paramJson) as Hashtable);
+            InterstitialAd ad = GetAdFromHashtable(values);
+
+            if (Ads.OnLeftApplication != null) {
+                Ads.OnLeftApplication(ad);
+            }
+        }
+
+        public void _OnClicked(string paramJson) {
+            Hashtable values = (AdColonyJson.Decode(paramJson) as Hashtable);
+            InterstitialAd ad = GetAdFromHashtable(values);
+
+            if (Ads.OnClicked != null) {
+                Ads.OnClicked(ad);
+            }
+        }
+
         public void _OnIAPOpportunity(string paramJson) {
             Hashtable values = (AdColonyJson.Decode(paramJson) as Hashtable);
             Hashtable valuesAd = null;
@@ -576,6 +620,7 @@ namespace AdColony {
         private static Ads _sharedGameObject;
         private static bool _initialized = false;
         private IAds _sharedInstance = null;
+        private IEventTracker _eventTracker = null;
         private System.Object _updateOnMainThreadActionsLock = new System.Object();
         private readonly Queue<System.Action> _updateOnMainThreadActions = new Queue<System.Action>();
 

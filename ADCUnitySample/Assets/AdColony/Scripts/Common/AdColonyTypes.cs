@@ -44,30 +44,4 @@ namespace AdColony {
         BachelorDegree,
         GraduateDegree
     }
-
-    public enum PubServicesStatusType {
-        Unknown,
-        Unavailable,
-        Connecting,
-        Available,
-        Invisible,
-        Maintenance,
-        Disabled,
-        Banned,
-    }
-
-    [Flags]
-    public enum PubServicesNotificationType {
-        None = 0,
-        Toast = 1,
-        Modal = 2
-    }
-
-    [Flags]
-    public enum PubServicesPushNotificationType {
-        None = 0,
-        Badge = 1,
-        Sound = 2,
-        Alert = 3
-    }
 }

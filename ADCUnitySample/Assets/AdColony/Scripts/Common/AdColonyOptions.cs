@@ -161,6 +161,17 @@ namespace AdColony {
             }
         }
 
+        private bool _testModeEnabled;
+        public bool TestModeEnabled {
+            get {
+                return _testModeEnabled;
+            }
+            set {
+                _testModeEnabled = value;
+                _data[Constants.AppOptionsTestModeKey] = _testModeEnabled;
+            }
+        }
+
         public AppOptions() {
 
         }

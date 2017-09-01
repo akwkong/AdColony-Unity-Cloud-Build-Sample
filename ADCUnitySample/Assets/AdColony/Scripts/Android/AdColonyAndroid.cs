@@ -24,9 +24,11 @@ namespace AdColony {
             Hashtable values = new Hashtable();
             values["app_id"] = appId;
             values["zone_ids"] = new ArrayList(zoneIds);
-            if (appOptions != null) {
-                values["app_options"] = appOptions.ToHashtable();
-            }
+			if (appOptions == null) {
+				appOptions = new AppOptions();
+			} 
+			appOptions.SetOption("plugin_version", AdColony.Constants.AdapterVersion);
+			values["app_options"] = appOptions.ToHashtable();
 
             string json = AdColonyJson.Encode(values);
             _pluginWrapper.CallStatic("configure", json);

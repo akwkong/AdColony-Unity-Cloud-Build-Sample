@@ -28,7 +28,7 @@
 @end
 
 
-@implementation NSArray (adcPubServicesUtils)
+@implementation NSArray (adcJsonParsing)
 
 - (NSString *)toJsonString {
     NSError *error;

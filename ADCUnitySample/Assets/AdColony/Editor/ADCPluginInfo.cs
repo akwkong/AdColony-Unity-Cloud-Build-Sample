@@ -1,13 +1,14 @@
+using AdColony;
 namespace AdColony.Editor {
-    public class ADCPluginInfo {
-        public const string Version = "3.1.0";
-        public const string AndroidSDKVersion = "3.1.2";
-        public const string iOSSDKVersion = "3.1.1";
-        #if UNITY_5_6 || UNITY_2017
+    public static class ADCPluginInfo {
+        public static string Version = Constants.AdapterVersion;
+        public static string AndroidSDKVersion = Constants.AndroidSDKVersion;
+        public static string iOSSDKVersion = Constants.iOSSDKVersion;
+#if UNITY_5_6_OR_NEWER
         public const UnityEditor.AndroidSdkVersions RequiredAndroidVersion = UnityEditor.AndroidSdkVersions.AndroidApiLevel16;
-        #else
+#else
         public const UnityEditor.AndroidSdkVersions RequiredAndroidVersion = UnityEditor.AndroidSdkVersions.AndroidApiLevel14;
-        #endif
+#endif
         public const string Name = "AdColony";
     }
 }

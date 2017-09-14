@@ -7,13 +7,22 @@ using System.Runtime.InteropServices;
 namespace AdColony {
 
     public class InterstitialAd {
+        /// <summary>
+        /// Represents the unique zone identifier string from which the interstitial was requested.
+        /// AdColony zone IDs can be created at the [Control Panel](http://clients.adcolony.com).
+        /// </summary>
         public string ZoneId;
-        public bool Expired;   // this could be dynamic later, might want to change
-        public string Id;   // Not really public, this is for internal use only
+
+        /// <summary>
+        /// Indicates whether or not the interstitial has been played or if it has met its expiration time.
+        /// AdColony interstitials become expired as soon as the ad launches or just before they have met their expiration time.
+        /// </summary>
+        public bool Expired;
 
         // ---------------------------------------------------------------------------
 
-#region Internal
+#region Internal Methods - do not call these
+        public string Id;
 
         public InterstitialAd(Hashtable values) {
             if (values != null) {

@@ -6,13 +6,55 @@ using System.Runtime.InteropServices;
 
 namespace AdColony {
     public class Zone {
+        /// <summary>
+        /// Represents the given zone's unique string identifier.
+        /// AdColony zone IDs can be created at the [Control Panel](http://clients.adcolony.com).
+        /// </summary>
         public string Identifier;
+
+        /// <summary>
+        /// Represents the zone type - interstitial, banner, or native.
+        /// You can set the type for your zones at the [Control Panel](http://clients.adcolony.com).
+        /// NOTE: Unity currently only supports Interstitial ads.
+        /// </summary>
+        /// <see cref="AdZoneType" />
         public AdZoneType Type;
+
+        /// <summary>
+        /// Indicates whether or not the zone is enabled.
+        /// Sending invalid zone id strings to `configureWithAppID:zoneIDs:options:completion:` will cause this value to be `NO`.
+        /// </summary>
         public bool Enabled;
+
+        /// <summary>
+        // Indicates whether or not the zone is configured for rewards.
+        // You can configure rewards in your zones at the [Control Panel](http://clients.adcolony.com).
+        // Sending invalid zone id strings to `configureWithAppID:zoneIDs:options:completion:` will cause this value to be `NO`.
+        /// </summary>
         public bool Rewarded;
+
+        /// <summary>
+        /// Represents the number of completed ad views required to receive a reward for the given zone.
+        /// This value will be 0 if the given zone is not configured for rewards.
+        /// </summary>
         public int ViewsPerReward;
+
+        /// <summary>
+        /// Represents the number of ads that must be watched before a reward is given.
+        /// This value will be 0 if the given zone is not configured for rewards.
+        /// </summary>
         public int ViewsUntilReward;
+
+        /// <summary>
+        /// Represents the reward amount for each completed rewarded ad view.
+        /// This value will be 0 if the given zone is not configured for rewards.
+        /// </summary>
         public int RewardAmount;
+
+        /// <summary>
+        /// Represents the singular form of the reward name based on the reward amount.
+        /// This value will be an empty string if the given zone is not configured for rewards.
+        /// </summary>
         public string RewardName;
 
         public Zone() {

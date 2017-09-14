@@ -6,9 +6,11 @@ using System.Runtime.InteropServices;
 
 namespace AdColony {
     public class UserMetadata {
-        private Hashtable _data = new Hashtable();
-
         private int _age;
+        /// <summary>
+        /// Configures the user's age.
+        /// Set this property to configure the user's age.
+        /// </summary>
         public int Age {
             get {
                 return _age;
@@ -25,6 +27,10 @@ namespace AdColony {
         }
 
         private List<string> _interests;
+        /// <summary>
+        /// Configures the user's interests.
+        /// Set this property with an array of NSStrings to configure the user's interests.
+        /// </summary>
         public List<string> Interests {
             get {
                 return _interests;
@@ -36,6 +42,11 @@ namespace AdColony {
         }
 
         private string _gender;
+        /// <summary>
+        /// Configures the user's gender.
+        /// Set this property to configure the user's gender.
+        /// Note that you should use one of the pre-defined constants below to configure this property.
+        /// </summary>
         public string Gender {
             get {
                 return _gender;
@@ -53,6 +64,10 @@ namespace AdColony {
         }
 
         private double _latitude;
+        /// <summary>
+        /// Configures the user's latitude.
+        /// Set this property to configure the user's latitude.
+        /// </summary>
         public double Latitude {
             get {
                 return _latitude;
@@ -64,6 +79,10 @@ namespace AdColony {
         }
 
         private double _longitude;
+        /// <summary>
+        /// Configures the user's longitude.
+        /// Set this property to configure the user's longitude.
+        /// </summary>
         public double Longitude {
             get {
                 return _longitude;
@@ -75,6 +94,10 @@ namespace AdColony {
         }
 
         private string _zipCode;
+        /// <summary>
+        /// Configures the user's zip code.
+        /// Set this property to configure the user's zip code.
+        /// </summary>
         public string ZipCode {
             get {
                 return _zipCode;
@@ -92,6 +115,10 @@ namespace AdColony {
         }
 
         private int _householdIncome;
+        /// <summary>
+        /// Configures the user's household income.
+        /// Set this property to configure the user's household income.
+        /// </summary>
         public int HouseholdIncome {
             get {
                 return _householdIncome;
@@ -103,6 +130,12 @@ namespace AdColony {
         }
 
         private string _maritalStatus;
+        /// <summary>
+        /// Configures the user's marital status.
+        /// Set this property to configure the user's marital status.
+        /// NOTE: that you should use one of the pre-defined constants below to configure this property.
+        /// </summary>
+        /// <see cref="AdMetadataMaritalStatusType" />
         public string MaritalStatus {
             get {
                 return _maritalStatus;
@@ -120,6 +153,12 @@ namespace AdColony {
         }
 
         private string _educationLevel;
+        /// <summary>
+        /// Configures the user's education level.
+        /// Set this property to configure the user's education level.
+        /// NOTE: that you should use one of the pre-defined constants below to configure this property.
+        /// </summary>
+        /// <see cref="AdMetadataEducationLevelType" />
         public string EducationLevel {
             get {
                 return _educationLevel;
@@ -134,6 +173,112 @@ namespace AdColony {
                 _educationLevel = setEducationLevel;
                 _data[Constants.UserMetadataEducationLevelKey] = _educationLevel;
             }
+        }
+
+        /// <summary>
+        /// Sets a supported option.
+        /// Use this method to set a string-based option with an arbitrary, string-based value.
+        /// </summary>
+        /// <param name="value">Value of the option.</param>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// </summary>
+        public void SetMetadata(string key, string value) {
+            if (key == null) {
+                return;
+            }
+            _data[key] = value;
+        }
+
+        /// <summary>
+        /// Sets a supported option.
+        /// Use this method to set a string-based option with an arbitrary, integer-based value.
+        /// </summary>
+        /// <param name="value">Value of the option.</param>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// </summary>
+        public void SetMetadata(string key, int value) {
+            if (key == null) {
+                return;
+            }
+            _data[key] = value;
+        }
+
+        /// <summary>
+        /// Sets a supported option.
+        /// Use this method to set a string-based option with an arbitrary, double-precision-based value.
+        /// </summary>
+        /// <param name="value">Value of the option.</param>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// </summary>
+        public void SetMetadata(string key, double value) {
+            if (key == null) {
+                return;
+            }
+            _data[key] = value;
+        }
+
+        /// <summary>
+        /// Sets a supported option.
+        /// Use this method to set a string-based option with an arbitrary, boolean-based value.
+        /// </summary>
+        /// <param name="value">Value of the option.</param>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// </summary>
+        public void SetMetadata(string key, bool value) {
+            if (key == null) {
+                return;
+            }
+            _data[key] = value;
+        }
+
+        /// <summary>
+        /// Returns the string-based value associated with the given key.
+        /// Call this method to obtain the string-based value associated with the given string-based key.
+        /// </summary>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// <returns>The string-based value associated with the given key. Returns `null` if the option has not been set.</returns>
+        public string GetStringMetadata(string key) {
+            return _data.ContainsKey(key) ? _data[key] as string : null;
+        }
+
+        /// <summary>
+        /// Returns the integer-based value associated with the given key.
+        /// Call this method to obtain the integer-based value associated with the given string-based key.
+        /// </summary>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// <returns>The integer-based value associated with the given key. Returns `null` if the option has not been set.</returns>
+        public int GetIntMetadata(string key) {
+            return _data.ContainsKey(key) ? Convert.ToInt32(_data[key]) : 0;
+        }
+
+        /// <summary>
+        /// Returns the double-precision-based value associated with the given key.
+        /// Call this method to obtain the double-precision-based value associated with the given string-based key.
+        /// </summary>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// <returns>The double-precision-based value associated with the given key. Returns `null` if the option has not been set.</returns>
+        public double GetDoubleMetadata(string key) {
+            return _data.ContainsKey(key) ? Convert.ToDouble(_data[key]) : 0.0;
+        }
+
+        /// <summary>
+        /// Returns the boolean-based value associated with the given key.
+        /// Call this method to obtain the boolean-based value associated with the given string-based key.
+        /// </summary>
+        /// <param name="key"> A string used to configure the option. Strings must be 128 characters or less.</param>
+        /// <returns>The boolean-based value associated with the given key. Returns `null` if the option has not been set.</returns>
+        public bool GetBoolMetadata(string key) {
+            return _data.ContainsKey(key) ? Convert.ToBoolean(Convert.ToInt32(_data[key])) : false;
+        }
+
+#region Internal Methods - do not call these
+
+        public Hashtable ToHashtable() {
+            return new Hashtable(_data);
+        }
+
+        public string ToJsonString() {
+            return AdColonyJson.Encode(_data);
         }
 
         public UserMetadata() {
@@ -178,56 +323,8 @@ namespace AdColony {
             }
         }
 
-        public void SetMetadata(string key, string value) {
-            if (key == null) {
-                return;
-            }
-            _data[key] = value;
-        }
+        private Hashtable _data = new Hashtable();
 
-        public void SetMetadata(string key, int value) {
-            if (key == null) {
-                return;
-            }
-            _data[key] = value;
-        }
-
-        public void SetMetadata(string key, double value) {
-            if (key == null) {
-                return;
-            }
-            _data[key] = value;
-        }
-
-        public void SetMetadata(string key, bool value) {
-            if (key == null) {
-                return;
-            }
-            _data[key] = value;
-        }
-
-        public string GetStringMetadata(string key) {
-            return _data.ContainsKey(key) ? _data[key] as string : null;
-        }
-
-        public int GetIntMetadata(string key) {
-            return _data.ContainsKey(key) ? Convert.ToInt32(_data[key]) : 0;
-        }
-
-        public double GetDoubleMetadata(string key) {
-            return _data.ContainsKey(key) ? Convert.ToDouble(_data[key]) : 0.0;
-        }
-
-        public bool GetBoolMetadata(string key) {
-            return _data.ContainsKey(key) ? Convert.ToBoolean(Convert.ToInt32(_data[key])) : false;
-        }
-
-        public Hashtable ToHashtable() {
-            return new Hashtable(_data);
-        }
-
-        public string ToJsonString() {
-            return AdColonyJson.Encode(_data);
-        }
+#endregion
     }
 }

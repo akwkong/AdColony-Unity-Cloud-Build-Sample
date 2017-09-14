@@ -61,7 +61,7 @@ namespace AdColony.Editor {
             project.AddFrameworkToProject(targetId, "Webkit.framework", true);
 
             // For 3.0 MP classes
-            project.AddBuildProperty(targetId, "OTHER_LDFLAGS", "-ObjC");
+            project.AddBuildProperty(targetId, "OTHER_LDFLAGS", "-ObjC -fobjc-arc");
 
             File.WriteAllText(projectPath, project.WriteToString());
 #endif
@@ -72,9 +72,18 @@ namespace AdColony.Editor {
             PlistDocument plist = new PlistDocument();
             plist.ReadFromString(File.ReadAllText(plistPath));
 
+            PlistElementDict root = plist.root;
 
-            // NO special plist modifications in this version
+            PlistElementArray applicationQueriesSchemes = root.CreateArray("LSApplicationQueriesSchemes");
+            applicationQueriesSchemes.AddString("fb");
+            applicationQueriesSchemes.AddString("instagram");
+            applicationQueriesSchemes.AddString("tumblr");
+            applicationQueriesSchemes.AddString("twitter");
 
+            root.SetString("NSCalendarsUsageDescription", "Some ad content may create a calendar event.");
+            root.SetString("NSPhotoLibraryUsageDescription", "Some ad content may require access to the photo library.");
+            root.SetString("NSCameraUsageDescription", "Some ad content may access camera to take picture.");
+            root.SetString("NSMotionUsageDescription", "Some ad content may require access to accelerometer for interactive ad experience.");
 
             File.WriteAllText(plistPath, plist.WriteToString());
 #endif

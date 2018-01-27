@@ -84,11 +84,14 @@ namespace AdColony {
 
         /// <summary>
         /// Event triggered after an InterstitialAd is closed.
+        /// It's recommended to request a new ad within this callback.
         /// </summary>
         public static event Action<InterstitialAd> OnClosed;
 
         /// <summary>
-        /// Event triggered after an InterstitialAd has been marked to expire.
+        /// Event triggered after an InterstitialAd expires and is no longer valid for playback.
+        /// This does not get triggered when the expired flag is set because it has been viewed.
+        /// It's recommended to request a new ad within this callback.
         /// </summary>
         public static event Action<InterstitialAd> OnExpiring;
 
@@ -188,7 +191,11 @@ namespace AdColony {
         /// <see cref="OnAudioStopped" />
         public static void ShowAd(InterstitialAd ad) {
             if (IsInitialized()) {
-                SharedInstance.ShowAd(ad);
+                if (ad != null) {
+                    SharedInstance.ShowAd(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorNullAd);
+                }
             }
         }
 
@@ -299,7 +306,11 @@ namespace AdColony {
         /// <param name="ad">The interstitial ad returned from RequestInterstitialAd.</param>
         public static void CancelAd(InterstitialAd ad) {
             if (IsInitialized()) {
-                SharedInstance.CancelAd(ad);
+                if (ad != null) {
+                    SharedInstance.CancelAd(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorNullAd);
+                }
             }
         }
 
@@ -312,7 +323,7 @@ namespace AdColony {
                 ret = SharedGameObject._eventTracker;
             }
             if (ret == null) {
-                Debug.LogError("Platform-specific implemenation not set");
+                Debug.LogError(Constants.AdsMessageErrorInvalidImplementation);
             }
             return ret;
         }
@@ -363,7 +374,7 @@ namespace AdColony {
                     ret = gameObject._sharedInstance;
                 }
                 if (ret == null) {
-                    Debug.LogError("Platform-specific implemenation not set");
+                    Debug.LogError(Constants.AdsMessageErrorInvalidImplementation);
                 }
                 return ret;
             }
@@ -437,13 +448,16 @@ namespace AdColony {
             }
         }
 
-
         public void _OnRequestInterstitial(string paramJson) {
             Hashtable values = (AdColonyJson.Decode(paramJson) as Hashtable);
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnRequestInterstitial != null) {
-                Ads.OnRequestInterstitial(ad);
+                if (ad != null) {
+                    Ads.OnRequestInterstitial(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -467,7 +481,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnOpened != null) {
-                Ads.OnOpened(ad);
+                if (ad != null) {
+                    Ads.OnOpened(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -476,7 +494,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnClosed != null) {
-                Ads.OnClosed(ad);
+                if (ad != null) {
+                    Ads.OnClosed(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
 
             _ads.Remove(ad.Id);
@@ -487,7 +509,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnExpiring != null) {
-                Ads.OnExpiring(ad);
+                if (ad != null) {
+                    Ads.OnExpiring(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
 
             _ads.Remove(ad.Id);
@@ -498,7 +524,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnAudioStarted != null) {
-                Ads.OnAudioStarted(ad);
+                if (ad != null) {
+                    Ads.OnAudioStarted(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -507,7 +537,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnAudioStopped != null) {
-                Ads.OnAudioStopped(ad);
+                if (ad != null) {
+                    Ads.OnAudioStopped(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -516,7 +550,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnLeftApplication != null) {
-                Ads.OnLeftApplication(ad);
+                if (ad != null) {
+                    Ads.OnLeftApplication(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -525,7 +563,11 @@ namespace AdColony {
             InterstitialAd ad = GetAdFromHashtable(values);
 
             if (Ads.OnClicked != null) {
-                Ads.OnClicked(ad);
+                if (ad != null) {
+                    Ads.OnClicked(ad);
+                } else {
+                    Debug.LogError(Constants.AdsMessageErrorUnableToRebuildAd);
+                }
             }
         }
 
@@ -608,6 +650,7 @@ namespace AdColony {
             if (id != null) {
                 if (_ads.ContainsKey(id)) {
                     ad = _ads[id];
+                    ad.UpdateValues(values);
                 } else {
                     ad = new InterstitialAd(values);
                     _ads[id] = ad;

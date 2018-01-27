@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  Note that the associated block of code will be dispatched on the main thread.
  */
 -(void)setReward:(nullable void (^)(BOOL success, NSString *name, int amount))reward;
+
 @end
 
 NS_ASSUME_NONNULL_END

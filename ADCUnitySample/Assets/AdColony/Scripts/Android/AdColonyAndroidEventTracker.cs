@@ -11,7 +11,7 @@ namespace AdColony {
         private AndroidJavaClass _plugin;
         private AndroidJavaClass _pluginWrapper;
 
-		public EventTrackerAndroid() {
+        public EventTrackerAndroid() {
             _plugin = new AndroidJavaClass("com.adcolony.sdk.AdColonyEventTracker");
             // Separate wrapper to manage type conversions
             _pluginWrapper = new AndroidJavaClass("com.adcolony.unityplugin.UnityADCAds");
@@ -98,7 +98,7 @@ namespace AdColony {
 
         public void LogEvent(string name, Hashtable data) {
             if (data != null) {
-				string json = AdColonyJson.Encode(data);
+                string json = AdColonyJson.Encode(data);
                 _pluginWrapper.CallStatic("logEvent", name, json);
             } else {
                 _plugin.CallStatic("logEvent", name);

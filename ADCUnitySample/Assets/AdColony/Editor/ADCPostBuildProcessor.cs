@@ -37,27 +37,23 @@ namespace AdColony.Editor {
             string targetId = project.TargetGuidByName(PBXProject.GetUnityTargetName());
 
             // Required Frameworks
+            project.AddFrameworkToProject(targetId, "AdSupport.framework", false);
             project.AddFrameworkToProject(targetId, "AudioToolbox.framework", false);
             project.AddFrameworkToProject(targetId, "AVFoundation.framework", false);
-            project.AddFrameworkToProject(targetId, "CoreGraphics.framework", false);
-            project.AddFrameworkToProject(targetId, "CoreTelephony.framework", false);
             project.AddFrameworkToProject(targetId, "CoreMedia.framework", false);
+            project.AddFrameworkToProject(targetId, "CoreTelephony.framework", false);
             project.AddFrameworkToProject(targetId, "EventKit.framework", false);
-            project.AddFrameworkToProject(targetId, "EventKitUI.framework", false);
-            project.AddFrameworkToProject(targetId, "MediaPlayer.framework", false);
-            project.AddFrameworkToProject(targetId, "MessageUI.framework", false);
-            project.AddFrameworkToProject(targetId, "QuartzCore.framework", false);
-            project.AddFrameworkToProject(targetId, "SystemConfiguration.framework", false);
-            project.AddFrameworkToProject(targetId, "Security.framework", false);
             project.AddFrameworkToProject(targetId, "JavaScriptCore.framework", false);
+            project.AddFrameworkToProject(targetId, "MessageUI.framework", false);
             project.AddFrameworkToProject(targetId, "MobileCoreServices.framework", false);
+            project.AddFrameworkToProject(targetId, "SystemConfiguration.framework", false);
 
             project.AddFileToBuild(targetId, project.AddFile("usr/lib/libz.1.2.5.dylib", "Frameworks/libz.1.2.5.dylib", PBXSourceTree.Sdk));
 
             // Optional Frameworks
-            project.AddFrameworkToProject(targetId, "AdSupport.framework", true);
             project.AddFrameworkToProject(targetId, "Social.framework", true);
             project.AddFrameworkToProject(targetId, "StoreKit.framework", true);
+            project.AddFrameworkToProject(targetId, "WatchConnectivity.framework", true);
             project.AddFrameworkToProject(targetId, "Webkit.framework", true);
 
             // For 3.0 MP classes

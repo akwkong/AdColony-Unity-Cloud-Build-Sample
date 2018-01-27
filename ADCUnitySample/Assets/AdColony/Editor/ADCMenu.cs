@@ -9,7 +9,11 @@ namespace AdColony.Editor {
         public static void UpdateManifest() {
             ADCManifestProcessor.Process();
             AssetDatabase.Refresh();
+#if UNITY_ANDROID
             EditorUtility.DisplayDialog(ADCPluginInfo.Name, "AndroidManifest.xml updated.", "OK");
+#else
+            EditorUtility.DisplayDialog(ADCPluginInfo.Name, "AndroidManifest.xml not updated.\n\nSwitch to Android platform and try again.", "OK");
+#endif
         }
 
         [MenuItem("Tools/AdColony/About")]

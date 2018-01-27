@@ -59,9 +59,13 @@ namespace AdColony {
         public static string AdsMessageAlreadyInitialized = "AdColony SDK already initialized";
         public static string AdsMessageSDKUnavailable = "AdColony SDK unavailable on current platform";
 
-		public const string AdapterVersion = "3.2.0";
-		public const string AndroidSDKVersion = "3.2.0";
-		public const string iOSSDKVersion = "3.2.0";
+        public static string AdsMessageErrorNullAd = "Error, ad is null";
+        public static string AdsMessageErrorUnableToRebuildAd = "Error, unable to rebuild ad";
+        public static string AdsMessageErrorInvalidImplementation = "Error, platform-specific implementation not set";
+
+        public const string AdapterVersion = "3.3.0";
+        public const string AndroidSDKVersion = "3.3.0";
+        public const string iOSSDKVersion = "3.3.0";
     }
 
     public class PIEConstants {
@@ -83,7 +87,7 @@ namespace AdColony {
         public static string ADCEventContentView = "content_view";
         public static string ADCEventInvite = "invite";
         public static string ADCEventLogin = "login";
-		public static string ADCEventReservation = "reservation";
+        public static string ADCEventReservation = "reservation";
         public static string ADCEventSearch = "search";
 
         /// Post Install Custom Event Slots

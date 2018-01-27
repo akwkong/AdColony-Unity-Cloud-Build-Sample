@@ -25,6 +25,10 @@ namespace AdColony {
         public string Id;
 
         public InterstitialAd(Hashtable values) {
+            UpdateValues(values);
+        }
+
+        public void UpdateValues(Hashtable values) {
             if (values != null) {
                 if (values.ContainsKey("zone_id")) {
                     ZoneId = values["zone_id"] as string;

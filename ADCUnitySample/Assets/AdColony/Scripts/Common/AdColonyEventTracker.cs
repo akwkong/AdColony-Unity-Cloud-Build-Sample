@@ -94,9 +94,9 @@ namespace AdColony {
         /// Currently, publishers are allowed up to 5 custom event slots and are required
         /// to keep track of what each corresponds to on their end.
         /// It is recommended to use the provided ADCCustomEvent* constants within PIEConstants.
-		/// <param name="eventName">The custom event name</param>
+        /// <param name="eventName">The custom event name</param>
         /// <param name="description">The description of the custom event. Max 512 characters.</param>
-		void LogCustomEvent(string eventName, string description);
+        void LogCustomEvent(string eventName, string description);
 
         /// <summary>
         /// Report an add_to_cart event.

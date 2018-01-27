@@ -17,7 +17,7 @@ namespace AdColony {
         [DllImport ("__Internal")] private static extern void _AdcLogTutorialCompleted();
         [DllImport ("__Internal")] private static extern void _AdcLogSocialSharingEventWithNetwork(string network, string description);
         [DllImport ("__Internal")] private static extern void _AdcLogRegistrationCompletedWithMethod(string method, string description);
-		[DllImport ("__Internal")] private static extern void _AdcLogCustomEvent(string eventName, string description);
+        [DllImport ("__Internal")] private static extern void _AdcLogCustomEvent(string eventName, string description);
         [DllImport ("__Internal")] private static extern void _AdcLogAddToCartWithID(string itemID);
         [DllImport ("__Internal")] private static extern void _AdcLogAddToWishlistWithID(string itemID);
         [DllImport ("__Internal")] private static extern void _AdcLogCheckoutInitiated();
@@ -105,11 +105,11 @@ namespace AdColony {
         }
 
         public void LogEvent(string name, Hashtable data) {
-			string json = "{}";
+            string json = "{}";
             if (data != null) {
-				json = AdColonyJson.Encode(data);
+                json = AdColonyJson.Encode(data);
             }
-			_AdcLogEvent(name, json);
+            _AdcLogEvent(name, json);
         }
     }
 #endif
